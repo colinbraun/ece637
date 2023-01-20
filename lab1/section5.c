@@ -1,4 +1,3 @@
-
 #include <math.h>
 #include <tiff.h>
 #include <allocate.h>
@@ -64,36 +63,7 @@ int main (int argc, char **argv)
   for (int color = 0; color < 3; color++) {
     result_data[color] = convolve(input_data[color], input_img.width, input_img.height, filter_data, filter_img.width, filter_img.height);
   }
-
   save_color_image_to_tiff(result_data, input_img.width, input_img.height, "section5.tif");
-
-  // // Perform clipping of values
-  // for ( i = 0; i < input_img.height; i++ )
-  // for ( j = 0; j < input_img.width; j++ ) {
-  //   for (int c = 0; c < 3; c++) {
-  //       pixel = (int32_t)sharpened_image.color[c][i][j];
-  //       if(pixel>255) {
-  //           sharpened_image.color[c][i][j] = 255;
-  //       }
-  //       else if(pixel<0)
-  //           sharpened_image.color[c][i][j] = 0;
-  //   }
-  // }
-
-  // /* open sharpened image file */
-  // if ( ( fp = fopen ( "sharpened.tif", "wb" ) ) == NULL ) {
-  //     fprintf ( stderr, "cannot open file smoothed.tif\n");
-  //     exit ( 1 );
-  // }
-  //   
-  // /* write sharpened image */
-  // if ( write_TIFF ( fp, &sharpened_image ) ) {
-  //     fprintf ( stderr, "error writing TIFF file %s\n", argv[2] );
-  //     exit ( 1 );
-  // }
-  //   
-  // /* close smoothed image file */
-  // fclose ( fp );
 }
 
 void error(char *name)
@@ -107,3 +77,4 @@ void error(char *name)
     printf("that swaps red and green components from the input image");
     exit(1);
 }
+

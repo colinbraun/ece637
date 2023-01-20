@@ -64,36 +64,7 @@ int main (int argc, char **argv)
     sharpened_data[1][i][j] = img_green + lambda * (img_green - total_green/25);
     sharpened_data[2][i][j] = img_blue + lambda * (img_blue - total_blue/25);
   }
-
   save_color_image_to_tiff(sharpened_data, input_img.width, input_img.height, "sharpened.tif");
-
-  // // Perform clipping of values
-  // for ( i = 0; i < input_img.height; i++ )
-  // for ( j = 0; j < input_img.width; j++ ) {
-  //   for (int c = 0; c < 3; c++) {
-  //       pixel = (int32_t)sharpened_image.color[c][i][j];
-  //       if(pixel>255) {
-  //           sharpened_image.color[c][i][j] = 255;
-  //       }
-  //       else if(pixel<0)
-  //           sharpened_image.color[c][i][j] = 0;
-  //   }
-  // }
-
-  // /* open sharpened image file */
-  // if ( ( fp = fopen ( "sharpened.tif", "wb" ) ) == NULL ) {
-  //     fprintf ( stderr, "cannot open file smoothed.tif\n");
-  //     exit ( 1 );
-  // }
-  //   
-  // /* write sharpened image */
-  // if ( write_TIFF ( fp, &sharpened_image ) ) {
-  //     fprintf ( stderr, "error writing TIFF file %s\n", argv[2] );
-  //     exit ( 1 );
-  // }
-  //   
-  // /* close smoothed image file */
-  // fclose ( fp );
 }
 
 void error(char *name)
