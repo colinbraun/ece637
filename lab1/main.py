@@ -18,14 +18,20 @@ def func2(u, v):
     """
     return 1/81 * (2*np.cos(u) + 2*np.cos(2*u) + 2*np.cos(3*u) + 2*np.cos(4*u) + 1) * (2*np.cos(v) + 2*np.cos(2*v) + 2*np.cos(3*v) + 2*np.cos(4*v) + 1)
 
-def func3(u, v, lam=1.5):
+def func3(u, v):
     """
-    Section 4 function to be plotted
+    Section 4 H plot data
     """
     h = 1/25 * (2*np.cos(u) + 2*np.cos(2*u) + 1) * (2*np.cos(v) + 2*np.cos(2*v) + 1)
-    return 1 + lam * (1 - h)
+    return h
 
-def func4(u, v):
+def func4(u, v, lam=1.5):
+    """
+    Section 4 G plot data
+    """
+    return 1 + lam * (1 - func3(u, v))
+
+def func5(u, v):
     """
     Section 5 function to be plotted
     """
@@ -44,7 +50,7 @@ z = np.array(func2(U.ravel(), V.ravel()))
 Z = z.reshape(U.shape)
 
 axis.plot_surface(U, V, Z)
-plt.savefig("section3-python.png")
+plt.savefig("results/section3-python.png")
 # plt.show()
 
 #---------------------SECTION 4 PLOTTING--------------
@@ -54,30 +60,40 @@ Z = z.reshape(U.shape)
 figure = plt.figure()
 axis = figure.add_subplot(111, projection='3d')
 axis.plot_surface(U, V, Z)
-plt.savefig("section4-python.png")
+plt.savefig("results/section4-H-python.png")
 # plt.show()
 
-#--------------------SECTION 5 PLOTTING--------------
 z = np.array(func4(U.ravel(), V.ravel()))
 Z = z.reshape(U.shape)
 
 figure = plt.figure()
 axis = figure.add_subplot(111, projection='3d')
 axis.plot_surface(U, V, Z)
-plt.savefig("section5-python.png")
+plt.savefig("results/section4-G-python.png")
+# plt.show()
+
+#--------------------SECTION 5 PLOTTING--------------
+z = np.array(func5(U.ravel(), V.ravel()))
+Z = z.reshape(U.shape)
+
+figure = plt.figure()
+axis = figure.add_subplot(111, projection='3d')
+axis.plot_surface(U, V, Z)
+plt.savefig("results/section5-python.png")
 # plt.show()
 
 #--------------------SECTION 5 POINT SPREAD----------
 y = np.zeros([256, 256])
-y[0, 0] = 0.01
+y[127, 127] = 0.01
 # print(image)
 for row in range(256):
     for col in range(256):
-        if row == 0 and col == 0:
+        # Don't clobber the delta function value
+        if row == 127 and col == 127:
             continue
         # Careful about indexing negative values. Here it is fine, since the last few entries are 0 to start anyway.
         y[row, col] = 0.9 * (y[row-1, col] + y[row, col-1]) - 0.81 * y[row-1, col-1]
 
 print(y*255*100)
 imsave = Image.fromarray((255*100*y).astype(np.uint8))
-imsave.save('h_out.tif')
+imsave.save('results/h_out.tif')

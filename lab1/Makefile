@@ -11,7 +11,7 @@ LIB_FLAGS := -L../lib/ -limg -lm
 
 CFLAGS := -std=c99 -Wall -pedantic $(INC_FLAGS)
 
-all: section3 section4
+all: section3 section4 section5
 
 clean:
 	/bin/rm *.o
@@ -26,4 +26,8 @@ section3: section3.o $(OBJ)
 section4: section4.o $(OBJ)
 	$(CC) $(CFLAGS) -o section4 section4.o $(OBJ) $(LIB_FLAGS)
 	mv section4 ./build
+
+section5: section5.o $(OBJ)
+	$(CC) $(CFLAGS) -o section5 section5.o $(OBJ) $(LIB_FLAGS)
+	mv section5 ./build
 

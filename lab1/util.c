@@ -73,3 +73,54 @@ void save_color_image_to_tiff(double ***img, size_t width, size_t height, char *
     fclose ( fp );
 
 }
+
+// Returns the convolution of a 2D signal with a 2D impulse response. This must be freed with free_img()
+// `img` is the input image, `width` is the width of the input image, `height`is the height of the input image,
+// `h` is the filter to convolve with, `h_width` is the width of the filter, `h_height` is the height of the filter.
+double **convolve(double **img, size_t width, size_t height, double **h, size_t h_width, size_t h_height) {
+    // Create the resulting image buffer
+    double **result = (double **)get_img(width, height, sizeof(double));
+    // find center position of kernel (half of kernel size)
+    int kCenterX = h_width / 2;
+    int kCenterY = h_height / 2;
+
+    for (int i = 0; i < height; ++i)              // rows
+    {
+        for (int j = 0; j < width; ++j)          // columns
+        {
+            for (int m = 0; m < h_height; ++m)     // kernel rows
+            {
+                int mm = h_height - 1 - m;      // row index
+
+                for (int n = 0; n < h_width; ++n) // kernel columns
+                {
+                    int nn = h_width - 1 - n;  // column index
+
+                    // index of input signal, used for checking boundary
+                    int ii = i + (m - kCenterY);
+                    int jj = j + (n - kCenterX);
+
+                    // ignore input samples which are out of bound
+                    if (ii >= 0 && ii < height && jj >= 0 && jj < width)
+                        result[i][j] += img[ii][jj] * h[mm][nn];
+                }
+            }
+        }
+    }
+    return result;
+}
+
+// Convert a TIFF_img to a colored image data of doubles
+double ***tiff_to_double(struct TIFF_img *tiff_img) {
+    int32_t width = tiff_img->width;
+    int32_t height = tiff_img->height;
+    double ***result = get_color_image(width, height);
+    for (int color = 0; color < 3; color++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                result[color][i][j] = (double)(tiff_img->color[color][i][j]);
+            }
+        }
+    }
+    return result;
+}
