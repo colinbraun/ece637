@@ -37,26 +37,37 @@ int main (int argc, char **argv)
     exit ( 1 );
   }
 
-  // LOAD THE FILTER
-  /* open image file */
-  if ( ( fp = fopen ( "../results/h_out.tif", "rb" ) ) == NULL ) {
-    fprintf ( stderr, "cannot open filter file\n");
-    exit ( 1 );
-  }
+  // // LOAD THE FILTER
+  // /* open image file */
+  // if ( ( fp = fopen ( "../results/h_out.tif", "rb" ) ) == NULL ) {
+  //   fprintf ( stderr, "cannot open filter file\n");
+  //   exit ( 1 );
+  // }
 
-  /* read image */
-  if ( read_TIFF ( fp, &filter_img ) ) {
-    fprintf ( stderr, "error reading file h_out.tif\n");
-    exit ( 1 );
-  }
+  // /* read image */
+  // if ( read_TIFF ( fp, &filter_img ) ) {
+  //   fprintf ( stderr, "error reading file h_out.tif\n");
+  //   exit ( 1 );
+  // }
 
-  /* close image file */
-  fclose ( fp );
+  // /* close image file */
+  // fclose ( fp );
   //----------------------SECTION 5 IMAGE---------------------------
   // Create the image we want
   double ***result_data = get_color_image(input_img.width, input_img.height);
   double ***input_data = tiff_to_double(&input_img);
-  double ***filter_data = tiff_to_double(&filter_img);
+  double **filter_data = get_img(256, 256, sizeof(double));
+  filter_data[127][127] = 1;
+  for (int row = 0; row < 256; row++) {
+    for (int col = 0; col < 256; col++) {
+      if (row == 0 || col == 0) {
+        // Don't start at 0, 0. Will get an index out of bounds.
+        continue;
+      }
+      filter_data[i][j] = 0.9 * (filter_data[row-1][col] + filter_data[row][col-1]) - 0.81 * filter_data[row-1][col-1];
+    }
+  }
+  // double ***filter_data = tiff_to_double(&filter_img);
   struct TIFF_img result_image;
   get_TIFF ( &result_image, input_img.height, input_img.width, 'c' );
   /* Filter image along horizontal direction */
