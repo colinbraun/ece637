@@ -49,7 +49,7 @@ U, V = np.meshgrid(u, v)
 z = np.array(func2(U.ravel(), V.ravel()))
 Z = z.reshape(U.shape)
 
-axis.plot_surface(U, V, Z, cmap=plt.cm.coolwarm)
+axis.plot_surface(U, V, Z)
 plt.savefig("results/section3-python.png")
 # plt.show()
 
@@ -59,7 +59,7 @@ Z = z.reshape(U.shape)
 
 figure = plt.figure()
 axis = figure.add_subplot(111, projection='3d')
-axis.plot_surface(U, V, Z, cmap=plt.cm.coolwarm)
+axis.plot_surface(U, V, Z)
 plt.savefig("results/section4-H-python.png")
 # plt.show()
 
@@ -68,7 +68,7 @@ Z = z.reshape(U.shape)
 
 figure = plt.figure()
 axis = figure.add_subplot(111, projection='3d')
-axis.plot_surface(U, V, Z, cmap=plt.cm.coolwarm)
+axis.plot_surface(U, V, Z)
 plt.savefig("results/section4-G-python.png")
 # plt.show()
 
@@ -78,7 +78,7 @@ Z = z.reshape(U.shape)
 
 figure = plt.figure()
 axis = figure.add_subplot(111, projection='3d')
-axis.plot_surface(U, V, Z, cmap=plt.cm.coolwarm)
+axis.plot_surface(U, V, Z)
 plt.savefig("results/section5-python.png")
 # plt.show()
 
