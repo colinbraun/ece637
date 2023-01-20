@@ -47,7 +47,7 @@ int main (int argc, char **argv)
 
   /* read image */
   if ( read_TIFF ( fp, &filter_img ) ) {
-    fprintf ( stderr, "error reading file %s\n", argv[1] );
+    fprintf ( stderr, "error reading file h_out.tif\n");
     exit ( 1 );
   }
 
