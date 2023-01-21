@@ -86,6 +86,7 @@ double **convolve(double **img, size_t width, size_t height, double **h, size_t 
 
     for (int i = 0; i < height; ++i)              // rows
     {
+        printf("Convolving row %d", i);
         for (int j = 0; j < width; ++j)          // columns
         {
             for (int m = 0; m < h_height; ++m)     // kernel rows

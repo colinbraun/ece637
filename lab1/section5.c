@@ -58,13 +58,25 @@ int main (int argc, char **argv)
   double ***input_data = tiff_to_double(&input_img);
   double **filter_data = get_img(256, 256, sizeof(double));
   filter_data[127][127] = 1;
+  double filter_sum = 0;
   for (int row = 0; row < 256; row++) {
     for (int col = 0; col < 256; col++) {
       if (row == 0 || col == 0) {
         // Don't start at 0, 0. Will get an index out of bounds.
         continue;
       }
-      filter_data[i][j] = 0.9 * (filter_data[row-1][col] + filter_data[row][col-1]) - 0.81 * filter_data[row-1][col-1];
+      if (row == 127 && col == 127){
+        // Don't clober the data we initialized
+        continue;
+      }
+      filter_data[row][col] = 0.9 * (filter_data[row-1][col] + filter_data[row][col-1]) - 0.81 * filter_data[row-1][col-1];
+      filter_sum += filter_data[row][col];
+    }
+  }
+  // Make DC Component gain = 1
+  for (int row = 0; row < 256; row++) {
+    for (int col = 0; col < 256; col++) {
+      filter_data[row][col] /= filter_sum;
     }
   }
   // double ***filter_data = tiff_to_double(&filter_img);
@@ -72,9 +84,22 @@ int main (int argc, char **argv)
   get_TIFF ( &result_image, input_img.height, input_img.width, 'c' );
   /* Filter image along horizontal direction */
   for (int color = 0; color < 3; color++) {
-    result_data[color] = convolve(input_data[color], input_img.width, input_img.height, filter_data, filter_img.width, filter_img.height);
+    printf("Performing a convolution");
+    result_data[color] = convolve(input_data[color], input_img.width, input_img.height, filter_data, 256, 256);
   }
+  // for (int color = 0; color < 3; color++) {
+  //   for (int row = 0; row < input_img.height; row++) {
+  //     for (int col = 0; col < input_img.width; col++) {
+  //       if (row == 0 || col == 0) {
+  //         continue;
+  //       }
+  //       result_data[color][row][col] = 0.9 * (input_data[color][row-1][col] + input_data[color][row][col-1]) - 0.81 * input_data[color][row-1][col-1];
+  //     }
+  //   }
+  // }
   save_color_image_to_tiff(result_data, input_img.width, input_img.height, "section5.tif");
+
+
 }
 
 void error(char *name)
