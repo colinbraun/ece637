@@ -53,13 +53,17 @@
 
 \section{Section 3 Report - FIR Low Pass Filter}
 \subsection{Derivation of analytical expression for $H(e^{ju}, e^{jv})$}
-% TODO: Put this in
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../results/ece637-lab1_1.jpg}
+    \begin{center}
+    \end{center}
+\end{figure}
 \subsection{Plot of $|H(e^{ju}, e^{jv})|$}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../results/section3-python.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Color Image in img03.tif}
@@ -67,7 +71,6 @@
     \centering
     \includegraphics[width=0.75\textwidth]{../results/img03.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Filtered Color Image}
@@ -75,7 +78,6 @@
     \centering
     \includegraphics[width=0.75\textwidth]{../results/smoothed.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{C Code}
@@ -84,25 +86,25 @@ The code used to generate this image.
 
 \section{Section 4 Report - FIR Sharpening Filter}
 \subsection{Derivation of analytical expression for $H(e^{ju}, e^{jv})$}
-% TODO: Put this in
 \subsection{Derivation of analytical expression for $G(e^{ju}, e^{jv})$}
-% TODO: Put this in
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../results/ece637-lab1_2.jpg}
+    \begin{center}
+    \end{center}
+\end{figure}
 \subsection{Plot of $|H(e^{ju}, e^{jv})|$}
-% TODO: Put this in
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../results/section4-H-python.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Plot of $|G(e^{ju}, e^{jv})|$ for $\lambda = 1.5$}
-% TODO: Put this in
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../results/section4-G-python.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Input Color Image imgblur.tif}
@@ -110,7 +112,6 @@ The code used to generate this image.
     \centering
     \includegraphics[width=0.75\textwidth]{../results/imgblur.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Sharpened Color Image for $\lambda = 1.5$}
@@ -118,22 +119,24 @@ The code used to generate this image.
     \centering
     \includegraphics[width=0.75\textwidth]{../results/sharpened.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{C Code}
-%TODO: Put this in
 \lstinputlisting[language=C]{../section4.c}
 
 \section{Section 5 Report - IIR Filter}
 \subsection{Derivation of analytical expression for $H(e^{ju}, e^{jv})$}
-% TODO: Put this in
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../results/ece637-lab1_3.jpg}
+    \begin{center}
+    \end{center}
+\end{figure}
 \subsection{Plot of $|H(e^{ju}, e^{jv})|$}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../results/section5-python.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Image of Point Spread Function}
@@ -141,55 +144,21 @@ The code used to generate this image.
     \centering
     \includegraphics[width=0.75\textwidth]{../results/h_out.png}
     \begin{center}
-    %Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
 \subsection{Filtered Ouput Color Image}
-%TODO: Put this in
-\subsection{C Code}
-\lstinputlisting[language=C]{../section5.c}
-\begin{equation*}
-    h_0[n] = h_{0}^{(2)}[n] \ast h_{0_2}^{(2)}[n] \ast h_{0_4}^{(2)}[n] \iff H_0(\omega) = H_0^{(2)}(\omega)H_0^{(2)}(2\omega)H_0^{(2)}(4\omega).
-\end{equation*}
-
-\section{Section 2}
-First paragraph of section 2. Example Figure:
+Note: The black section of the below image is to be exected, due to the size of filter (256x256). This is a result of the instructions to assume all pixels outside of the image boundaries to be 0, not a result of an error in the code.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{figure-example}
+    \includegraphics[width=0.75\textwidth]{../results/section5.png}
     \begin{center}
-    Figure 1(a): The frequency response of $H_m(\omega), m = 0,1,...,7$.
     \end{center}
 \end{figure}
+\subsection{C Code}
+\lstinputlisting[language=C]{../section5.c}
 
-Example Table
-\begin{table}[H]
-    \begin{center}
-        \begin{tabular}{| l | l | l | l | l | l | l | l |}
-            \hline
-            1.0000 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            \hline
-            0 & 1.0000 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            \hline
-            0 & 0 & 1.0000 & 0 & 0 & 0 & 0 & 0 \\
-            \hline
-            0 & 0 & 0 & 1.0000 & 0 & 0 & 0 & 0 \\
-            \hline
-            0 & 0 & 0 & 0 & 1.0000 & 0 & 0 & 0 \\
-            \hline
-            0 & 0 & 0 & 0 & 0 & 1.0000 & 0 & 0 \\
-            \hline
-            0 & 0 & 0 & 0 & 0 & 0 & 1.0000 & 0 \\
-            \hline
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1.0000 \\
-            \hline
-        \end{tabular}
-    \end{center}
-    \caption{$\textbf{HH}^{\dagger}$ is nearly identical to the identity matrix $\textbf{I}$.}
-\end{table}
-
-\section{Section 3}
-Example of how to include code is below:
-\lstinputlisting[language=Matlab]{code/example.m}
+\section{Appendix - util.c Code}
+Below is the code included in util.c. All other function calls not included in any of the source codes in this document are available in the start code provided.
+\lstinputlisting[language=C]{../util.c}
 
 \end{document}

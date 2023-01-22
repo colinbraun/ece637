@@ -37,21 +37,6 @@ int main (int argc, char **argv)
     exit ( 1 );
   }
 
-  // // LOAD THE FILTER
-  // /* open image file */
-  // if ( ( fp = fopen ( "../results/h_out.tif", "rb" ) ) == NULL ) {
-  //   fprintf ( stderr, "cannot open filter file\n");
-  //   exit ( 1 );
-  // }
-
-  // /* read image */
-  // if ( read_TIFF ( fp, &filter_img ) ) {
-  //   fprintf ( stderr, "error reading file h_out.tif\n");
-  //   exit ( 1 );
-  // }
-
-  // /* close image file */
-  // fclose ( fp );
   //----------------------SECTION 5 IMAGE---------------------------
   // Create the image we want
   double ***result_data = get_color_image(input_img.width, input_img.height);
@@ -87,19 +72,7 @@ int main (int argc, char **argv)
     printf("Performing a convolution");
     result_data[color] = convolve(input_data[color], input_img.width, input_img.height, filter_data, 256, 256);
   }
-  // for (int color = 0; color < 3; color++) {
-  //   for (int row = 0; row < input_img.height; row++) {
-  //     for (int col = 0; col < input_img.width; col++) {
-  //       if (row == 0 || col == 0) {
-  //         continue;
-  //       }
-  //       result_data[color][row][col] = 0.9 * (input_data[color][row-1][col] + input_data[color][row][col-1]) - 0.81 * input_data[color][row-1][col-1];
-  //     }
-  //   }
-  // }
   save_color_image_to_tiff(result_data, input_img.width, input_img.height, "section5.tif");
-
-
 }
 
 void error(char *name)
