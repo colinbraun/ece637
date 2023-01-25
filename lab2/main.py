@@ -4,96 +4,71 @@ import numpy as np
 from numpy import pi
 import matplotlib.pyplot as plt
 from PIL import Image
+from SpecAnal import BetterSpecAnal
+
+def filter(x):
+    """
+    Filter the image x with a particular filter for problem 2.2
+    """
+    result = np.zeros([len(x), len(x[0])])
+    # result[0, 0] = x[0, 0]
+    
+    for row in range(len(x)):
+        for col in range(len(x[row])):
+            t1 = x[row][col]
+            if row-1 < 0:
+                t2 = 0
+            else:
+                t2 = 0.99 * result[row-1][col]
+            if col-1 < 0:
+                t3 = 0
+            else:
+                t3 = 0.99 * result[row][col-1]
+            if row-1 < 0 or col-1 < 0:
+                t4 = 0
+            else:
+                t4 = -0.9801 * result[row-1][col-1]
+            
+            result[row][col] = t1 + t2 + t3 + t4
+                
+    return result
 
 
-def func(u, v):
-    """
-    Compute the value of the CTFT 
-    """
-    return np.sin(u*8*pi)*np.sin(v*8*pi)*2*2/81/81/pi/pi/u/v
-
-def func2(u, v):
-    """
-    Section 3 function to be plotted
-    """
-    return 1/81 * (2*np.cos(u) + 2*np.cos(2*u) + 2*np.cos(3*u) + 2*np.cos(4*u) + 1) * (2*np.cos(v) + 2*np.cos(2*v) + 2*np.cos(3*v) + 2*np.cos(4*v) + 1)
-
-def func3(u, v):
-    """
-    Section 4 H plot data
-    """
-    h = 1/25 * (2*np.cos(u) + 2*np.cos(2*u) + 1) * (2*np.cos(v) + 2*np.cos(2*v) + 1)
-    return h
-
-def func4(u, v, lam=1.5):
-    """
-    Section 4 G plot data
-    """
-    return 1 + lam * (1 - func3(u, v))
-
-def func5(u, v):
-    """
-    Section 5 function to be plotted
-    """
-    return np.absolute(0.01 * (np.exp(1j*u)*np.exp(1j*v)) / (np.exp(1j*u)*np.exp(1j*v) - 0.9*np.exp(1j*u) - 0.9*np.exp(1j*v) + 0.81))
-
-
-figure = plt.figure()
-axis = figure.add_subplot(111, projection='3d')
-
-u = np.linspace(-pi, pi, 1000)
-v = np.linspace(-pi, pi, 1000)
-# data = np.random.random((1000, 1000))
-U, V = np.meshgrid(u, v)
-# ----------------SECTION 3 PLOTTING-----------------
-z = np.array(func2(U.ravel(), V.ravel()))
-Z = z.reshape(U.shape)
-
-axis.plot_surface(U, V, Z)
-plt.savefig("results/section3-python.png")
+x = np.random.uniform(-0.5, 0.5, [512, 512])
+x_scaled = 255 * (x + 0.5)
+plt.imshow(x_scaled.astype(np.uint8))
+print(x_scaled.dtype)
+plt.savefig("images/np-rand-uniform.png")
 # plt.show()
-
-#---------------------SECTION 4 PLOTTING--------------
-z = np.array(func3(U.ravel(), V.ravel()))
-Z = z.reshape(U.shape)
-
-figure = plt.figure()
-axis = figure.add_subplot(111, projection='3d')
-axis.plot_surface(U, V, Z)
-plt.savefig("results/section4-H-python.png")
+plt.clf()
+y = filter(x) + 127
+plt.imshow(y.astype(np.uint8))
+# print(filter(x) + 127)
+plt.savefig("images/image-p-127.png")
 # plt.show()
+plt.clf()
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+a = b = np.linspace(-np.pi, np.pi, num = 64)
+X, Y = np.meshgrid(a, b)
 
-z = np.array(func4(U.ravel(), V.ravel()))
-Z = z.reshape(U.shape)
+Z = np.log((BetterSpecAnal(y)))
 
-figure = plt.figure()
-axis = figure.add_subplot(111, projection='3d')
-axis.plot_surface(U, V, Z)
-plt.savefig("results/section4-G-python.png")
-# plt.show()
+surf = ax.plot_surface(X, Y, Z, cmap=plt.cm.coolwarm)
 
-#--------------------SECTION 5 PLOTTING--------------
-z = np.array(func5(U.ravel(), V.ravel()))
-Z = z.reshape(U.shape)
+plt.savefig("images/y-log-pwr-spec-density-better.png")
 
-figure = plt.figure()
-axis = figure.add_subplot(111, projection='3d')
-axis.plot_surface(U, V, Z)
-plt.savefig("results/section5-python.png")
-# plt.show()
-
-#--------------------SECTION 5 POINT SPREAD----------
-y = np.zeros([256, 256])
-y[127, 127] = 0.01
-# print(image)
-for row in range(256):
-    for col in range(256):
-        # Don't clobber the delta function value
-        if row == 127 and col == 127:
-            continue
-        # Careful about indexing negative values. Here it is fine, since the last few entries are 0 to start anyway.
-        y[row, col] = 0.9 * (y[row-1, col] + y[row, col-1]) - 0.81 * y[row-1, col-1]
-
-print(y*255*100)
-imsave = Image.fromarray((255*100*y).astype(np.uint8))
-imsave.save('results/h_out.tif')
+# figure = plt.figure()
+# axis = figure.add_subplot(111, projection='3d')
+# 
+# u = np.linspace(-pi, pi, 1000)
+# v = np.linspace(-pi, pi, 1000)
+# # data = np.random.random((1000, 1000))
+# U, V = np.meshgrid(u, v)
+# # ----------------SECTION 3 PLOTTING-----------------
+# z = np.array(func2(U.ravel(), V.ravel()))
+# Z = z.reshape(U.shape)
+# 
+# axis.plot_surface(U, V, Z)
+# plt.savefig("results/section3-python.png")
+# # plt.show()

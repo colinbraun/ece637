@@ -39,80 +39,81 @@ def BetterSpecAnal(x):
     return total_pwr_spec_density
 
 
-# Read in a gray scale TIFF image.
-im = Image.open('img04g.tif')
-print('Read img04.tif.')
-print('Image size: ', im.size)
+if __name__ == "__main__":
+    # Read in a gray scale TIFF image.
+    im = Image.open('img04g.tif')
+    print('Read img04.tif.')
+    print('Image size: ', im.size)
 
-# Display image object by PIL.
-im.show(title='image')
+    # Display image object by PIL.
+    im.show(title='image')
 
-# Import Image Data into Numpy array.
-# The matrix x contains a 2-D array of 8-bit gray scale values. 
-x = np.array(im)
-print('Data type: ', x.dtype)
+    # Import Image Data into Numpy array.
+    # The matrix x contains a 2-D array of 8-bit gray scale values. 
+    x = np.array(im)
+    print('Data type: ', x.dtype)
 
-# Display numpy array by matplotlib.
-plt.imshow(x, cmap=plt.cm.gray)
-plt.title('Image')
+    # Display numpy array by matplotlib.
+    plt.imshow(x, cmap=plt.cm.gray)
+    plt.title('Image')
 
-# Set colorbar location. [left, bottom, width, height].
-cax =plt.axes([0.9, 0.15, 0.04, 0.7]) 
-plt.colorbar(cax=cax)
-plt.show()
+    # Set colorbar location. [left, bottom, width, height].
+    cax =plt.axes([0.9, 0.15, 0.04, 0.7]) 
+    plt.colorbar(cax=cax)
+    plt.show()
 
-x = np.double(x)/255.0
+    x = np.double(x)/255.0
 
-i = 99
-j = 99
-N = 256
+    i = 99
+    j = 99
+    N = 256
 
-z = x[i:N+i, j:N+j]
+    z = x[i:N+i, j:N+j]
 
-# Compute the power spectrum for the NxN region.
-Z = (1/N**2)*np.abs(np.fft.fft2(z))**2
+    # Compute the power spectrum for the NxN region.
+    Z = (1/N**2)*np.abs(np.fft.fft2(z))**2
 
-# Use fftshift to move the zero frequencies to the center of the plot.
-Z = np.fft.fftshift(Z)
+    # Use fftshift to move the zero frequencies to the center of the plot.
+    Z = np.fft.fftshift(Z)
 
-# Compute the logarithm of the Power Spectrum.
-Zabs = np.log(Z)
+    # Compute the logarithm of the Power Spectrum.
+    Zabs = np.log(Z)
 
-# Plot the result using a 3-D mesh plot and label the x and y axises properly. 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-a = b = np.linspace(-np.pi, np.pi, num = N)
-X, Y = np.meshgrid(a, b)
+    # Plot the result using a 3-D mesh plot and label the x and y axises properly. 
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    a = b = np.linspace(-np.pi, np.pi, num = N)
+    X, Y = np.meshgrid(a, b)
 
-surf = ax.plot_surface(X, Y, Zabs, cmap=plt.cm.coolwarm)
+    surf = ax.plot_surface(X, Y, Zabs, cmap=plt.cm.coolwarm)
 
-ax.set_xlabel('$\mu$ axis')
-ax.set_ylabel('$\\nu$ axis')
-ax.set_zlabel('Z Label')
-ax.set_title(f"{N}x{N} Power Spectral Density")
+    ax.set_xlabel('$\mu$ axis')
+    ax.set_ylabel('$\\nu$ axis')
+    ax.set_zlabel('Z Label')
+    ax.set_title(f"{N}x{N} Power Spectral Density")
 
-fig.colorbar(surf, shrink=0.5, aspect=5)
+    fig.colorbar(surf, shrink=0.5, aspect=5)
 
-fig.savefig(f"images/log-pwr-spec-density-{N}x{N}.png")
+    fig.savefig(f"images/log-pwr-spec-density-{N}x{N}.png")
 
-plt.show()
+    plt.show()
 
-# Plot the result using a 3-D mesh plot and label the x and y axises properly. 
-N = 64
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-a = b = np.linspace(-np.pi, np.pi, num = N)
-X, Y = np.meshgrid(a, b)
+    # Plot the result using a 3-D mesh plot and label the x and y axises properly. 
+    N = 64
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    a = b = np.linspace(-np.pi, np.pi, num = N)
+    X, Y = np.meshgrid(a, b)
 
-surf = ax.plot_surface(X, Y, np.log(BetterSpecAnal(x)), cmap=plt.cm.coolwarm)
+    surf = ax.plot_surface(X, Y, np.log(BetterSpecAnal(x)), cmap=plt.cm.coolwarm)
 
-ax.set_xlabel('$\mu$ axis')
-ax.set_ylabel('$\\nu$ axis')
-ax.set_zlabel('Z Label')
-ax.set_title(f"Better Power Spectral Density")
+    ax.set_xlabel('$\mu$ axis')
+    ax.set_ylabel('$\\nu$ axis')
+    ax.set_zlabel('Z Label')
+    ax.set_title(f"Better Power Spectral Density")
 
-fig.colorbar(surf, shrink=0.5, aspect=5)
+    fig.colorbar(surf, shrink=0.5, aspect=5)
 
-fig.savefig(f"images/log-pwr-spec-density-better.png")
+    fig.savefig(f"images/log-pwr-spec-density-better.png")
 
-plt.show()
+    plt.show()
