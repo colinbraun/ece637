@@ -51,42 +51,73 @@
 \begin{document}
 \maketitle
 
-\section{Section 3 Report - FIR Low Pass Filter}
-\subsection{Derivation of analytical expression for $H(e^{ju}, e^{jv})$}
+\section{Power Spectral Density of an Image}
+\subsection{The gray scale image img04g.tif}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../results/ece637-lab1_1.jpg}
+    \includegraphics[width=1\textwidth]{../images/img04g.png}
     \begin{center}
     \end{center}
 \end{figure}
-\subsection{Plot of $|H(e^{ju}, e^{jv})|$}
+\subsection{The power spectral density plots for block sizes of 64 × 64, 128 × 128, and 256 × 256}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{../results/section3-python.png}
+    \includegraphics[width=0.75\textwidth]{../images/log-pwr-spec-density-64x64.png}
     \begin{center}
     \end{center}
 \end{figure}
-\subsection{Color Image in img03.tif}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{../results/img03.png}
+    \includegraphics[width=0.75\textwidth]{../images/log-pwr-spec-density-128x128.png}
     \begin{center}
     \end{center}
 \end{figure}
-\subsection{Filtered Color Image}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{../results/smoothed.png}
+    \includegraphics[width=0.75\textwidth]{../images/log-pwr-spec-density-256x256.png}
     \begin{center}
     \end{center}
 \end{figure}
-\subsection{C Code}
-The code used to generate this image.
-\lstinputlisting[language=C]{../section3.c}
+\subsection{The improved power spectral density estimate.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/log-pwr-spec-density-better.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Code for BetterSpecAnal(x) function}
+\lstinputlisting[language=Python, firstline=13, lastline=39]{../SpecAnal.py}
 
 
-\section{Appendix - util.c Code}
-Below is the code included in util.c. All other function calls not included in any of the source codes in this document are available in the start code provided.
-\lstinputlisting[language=C]{../util.c}
+
+\section{Power Spectral Density of a 2-D AR Process}
+\subsection{The image 255 * (x + 0.5)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/np-rand-uniform.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{The image y + 127}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/image-p-127.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{A mesh plot of the function log $S_y(e^{j\mu}, e^{j\nu})$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/y-log-pwr-spec-density-theoretical.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{A mesh plot of the log of the estimated power spectral density of y using BetterSpecAnal(y)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../images/y-log-pwr-spec-density-better.png}
+    \begin{center}
+    \end{center}
+\end{figure}
 
 \end{document}
