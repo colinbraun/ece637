@@ -1,0 +1,167 @@
+\documentclass{article}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+% --- Code listings ---
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+% --- End Code Listings
+\usepackage{graphicx}
+\usepackage{float}
+% \usepackage{caption}
+% \usepackage{subcaption}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\graphicspath{{./figures/}}
+
+\title{ECE 637 - Lab 1}
+\author{Colin Braun}
+
+\begin{document}
+\maketitle
+
+\section{Area Fill}
+\subsection{Print out of img22gd2.tif}
+\subsection{Print out of image showing the connected set for s = (67, 45), and T = 2}
+\subsection{Print out of image showing the connected set for s = (67, 45), and T = 1}
+\subsection{Print out of image showing the connected set for s = (67, 45), and T = 3}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../results/ece637-lab1_1.jpg}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Plot of $|H(e^{ju}, e^{jv})|$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/section3-python.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Color Image in img03.tif}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/img03.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Filtered Color Image}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/smoothed.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{C Code}
+The code used to generate this image.
+\lstinputlisting[language=C]{../section3.c}
+
+\section{Section 4 Report - FIR Sharpening Filter}
+\subsection{Derivation of analytical expression for $H(e^{ju}, e^{jv})$}
+\subsection{Derivation of analytical expression for $G(e^{ju}, e^{jv})$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../results/ece637-lab1_2.jpg}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Plot of $|H(e^{ju}, e^{jv})|$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/section4-H-python.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Plot of $|G(e^{ju}, e^{jv})|$ for $\lambda = 1.5$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/section4-G-python.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Input Color Image imgblur.tif}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/imgblur.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Sharpened Color Image for $\lambda = 1.5$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/sharpened.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{C Code}
+\lstinputlisting[language=C]{../section4.c}
+
+\section{Section 5 Report - IIR Filter}
+\subsection{Derivation of analytical expression for $H(e^{ju}, e^{jv})$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../results/ece637-lab1_3.jpg}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Plot of $|H(e^{ju}, e^{jv})|$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/section5-python.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Image of Point Spread Function}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/h_out.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{Filtered Ouput Color Image}
+Note: The black section of the below image is to be exected, due to the size of filter (256x256). This is a result of the instructions to assume all pixels outside of the image boundaries to be 0, not a result of an error in the code.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../results/section5.png}
+    \begin{center}
+    \end{center}
+\end{figure}
+\subsection{C Code}
+\lstinputlisting[language=C]{../section5.c}
+
+\section{Appendix - util.c Code}
+Below is the code included in util.c. All other function calls not included in any of the source codes in this document are available in the start code provided.
+\lstinputlisting[language=C]{../util.c}
+
+\end{document}
