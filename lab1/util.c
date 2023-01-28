@@ -133,25 +133,24 @@ void save_grayscale_image_to_tiff(double **img, size_t width, size_t height, cha
 // unsigned char type image of the above version of the above
 void save_grayscale_image_to_tiff_c(unsigned char **img, size_t width, size_t height, char *filename)
 {
-    struct TIFF_img image;
-    get_TIFF ( &image, height, width, 'c' );
+    struct tiff_img image;
+    get_tiff ( &image, height, width, 'c' );
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 image.mono[row][col] = img[row][col];
             }
         }
-    }
 
-    FILE *fp;
+    file *fp;
     /* open image file */
-    if ( ( fp = fopen ( filename, "wb" ) ) == NULL ) {
+    if ( ( fp = fopen ( filename, "wb" ) ) == null ) {
         fprintf ( stderr, "cannot open file %s\n", filename);
         exit ( 1 );
     }
         
     /* write image */
-    if ( write_TIFF ( fp, &image ) ) {
-        fprintf ( stderr, "error writing TIFF file %s\n", filename);
+    if ( write_tiff ( fp, &image ) ) {
+        fprintf ( stderr, "error writing tiff file %s\n", filename);
         exit ( 1 );
     }
         

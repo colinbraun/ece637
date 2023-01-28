@@ -14,7 +14,7 @@ CFLAGS := -g -std=c99 -Wall -pedantic $(INC_FLAGS)
 all: section1
 
 clean:
-	/bin/rm *.o
+	rm *.o section1
 
 OBJ = util.o
 

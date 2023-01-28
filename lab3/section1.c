@@ -1,9 +1,9 @@
-
 #include <math.h>
 #include <tiff.h>
 #include <allocate.h>
 #include <randlib.h>
 #include <typeutil.h>
+#include "util.h"
 
 typedef struct pixel
 {
@@ -37,7 +37,6 @@ int main(int argc, char **argv)
 {
     FILE *fp;
     struct TIFF_img input_img;
-    int32_t i, j;
 
     // if (argc != 2)
     //     error(argv[0]);
@@ -73,26 +72,22 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    unsigned char **seg = get_img(input_img.width, input_img.height, sizeof(unsigned char));
+    unsigned int **seg = (unsigned int **)get_img(input_img.width, input_img.height, sizeof(unsigned int));
     int numConPixels = 0;
-    double T = 2;
-    ConnectedSet({.m = 67, .n = 45}, T, input_img.mono, input_img.width, input_img.height, 1, seg, &numConPixels);
-    /* open final image file */
-    if ((fp = fopen("smoothed.tif", "wb")) == NULL)
-    {
-        fprintf(stderr, "cannot open file smoothed.tif\n");
-        exit(1);
+    Pixel startPoint = {.m = 67, .n = 45};
+    double T = 1;
+    int classLabel = 1;
+    ConnectedSet(startPoint, T, input_img.mono, input_img.width, input_img.height, classLabel, seg, &numConPixels);
+    // Flip colors of images
+    for (int row = 0; row < input_img.height; row++) {
+        for (int col = 0; col < input_img.width; col++) {
+            if (seg[row][col] == 0)
+                seg[row][col] = 255;
+            else if (seg[row][col] == classLabel)
+                seg[row][col] = 0;
+        }
     }
-
-    /* write smoothed image */
-    if (write_TIFF(fp, &smoothed_image))
-    {
-        fprintf(stderr, "error writing TIFF file %s\n", argv[2]);
-        exit(1);
-    }
-
-    /* close smoothed image file */
-    fclose(fp);
+    save_grayscale_image_to_tiff_i(seg, input_img.width, input_img.height, "connected-set-1t.tif");
 }
 
 void ConnectedNeighbors(
@@ -146,10 +141,10 @@ void ConnectedSet(
     seg[s.m][s.n] = ClassLabel;
     while (index != -1) {
         s = startPoints[index--];
-        int *numNeighbors;
+        int numNeighbors = 0;
         Pixel neighbors[4];
         // Find the neighbors of the pixel s
-        ConnectedNeighbors(s, T, img, width, height, numNeighbors, neighbors);
+        ConnectedNeighbors(s, T, img, width, height, &numNeighbors, neighbors);
         for (int i = 0; i < numNeighbors; i++) {
             Pixel p = neighbors[i];
             // If we haven't marked this pixel as part of the set add it to the pixels to explore

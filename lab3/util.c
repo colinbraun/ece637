@@ -125,3 +125,66 @@ double ***tiff_to_double(struct TIFF_img *tiff_img) {
     }
     return result;
 }
+
+void save_grayscale_image_to_tiff(double **img, size_t width, size_t height, char *filename)
+{
+
+}
+
+// unsigned char type image of the above version of the above
+void save_grayscale_image_to_tiff_c(unsigned char **img, size_t width, size_t height, char *filename)
+{
+    struct TIFF_img image;
+    get_TIFF ( &image, height, width, 'g' );
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            image.mono[row][col] = img[row][col];
+        }
+    }
+
+    FILE *fp;
+    /* open image file */
+    if ( ( fp = fopen ( filename, "wb" ) ) == NULL ) {
+        fprintf ( stderr, "cannot open file %s\n", filename);
+        exit ( 1 );
+    }
+        
+    /* write image */
+    if ( write_TIFF ( fp, &image ) ) {
+        fprintf ( stderr, "error writing TIFF file %s\n", filename);
+        exit ( 1 );
+    }
+        
+    /* close image file */
+    fclose ( fp );
+
+}
+
+// unsigned char type image of the above version of the above
+void save_grayscale_image_to_tiff_i(unsigned int **img, size_t width, size_t height, char *filename)
+{
+    struct TIFF_img image;
+    get_TIFF ( &image, height, width, 'g' );
+    for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+            image.mono[row][col] = (unsigned char)(img[row][col]);
+        }
+    }
+
+    FILE *fp;
+    /* open image file */
+    if ( ( fp = fopen ( filename, "wb" ) ) == NULL ) {
+        fprintf ( stderr, "cannot open file %s\n", filename);
+        exit ( 1 );
+    }
+        
+    /* write image */
+    if ( write_TIFF ( fp, &image ) ) {
+        fprintf ( stderr, "error writing TIFF file %s\n", filename);
+        exit ( 1 );
+    }
+        
+    /* close image file */
+    fclose ( fp );
+
+}
