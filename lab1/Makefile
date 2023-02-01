@@ -21,13 +21,16 @@ OBJ = util.o
 section3: section3.o $(OBJ)
 	# $(CC) $(CFLAGS) -o section3 section3.o $(OBJ) -lm
 	$(CC) $(CFLAGS) -o section3 section3.o $(OBJ) $(LIB_FLAGS)
-	mv section3 ./build
+	# mv section3 ./build
+	cp section3 ./build
 
 section4: section4.o $(OBJ)
 	$(CC) $(CFLAGS) -o section4 section4.o $(OBJ) $(LIB_FLAGS)
-	mv section4 ./build
+	# mv section4 ./build
+	cp section4 ./build
 
 section5: section5.o $(OBJ)
 	$(CC) $(CFLAGS) -o section5 section5.o $(OBJ) $(LIB_FLAGS)
-	mv section5 ./build
+	# mv section5 ./build
+	cp section5 ./build
 

@@ -1,4 +1,4 @@
 #!/bin/bash
 make
 ./section1
-
+./section2

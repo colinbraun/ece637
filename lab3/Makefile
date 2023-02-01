@@ -11,7 +11,7 @@ LIB_FLAGS := -L../lib/ -limg -lm
 
 CFLAGS := -g -std=c99 -Wall -pedantic $(INC_FLAGS)
 
-all: section1
+all: section1 section2
 
 clean:
 	rm *.o section1
@@ -19,8 +19,7 @@ clean:
 OBJ = util.o
 
 section1: section1.o $(OBJ)
-	# $(CC) $(CFLAGS) -o section3 section3.o $(OBJ) -lm
 	$(CC) $(CFLAGS) -o section1 section1.o $(OBJ) $(LIB_FLAGS)
-	# No longer want to have a build directory, no need to complicate
-	# mv section1 ./build
 
+section2: section2.o $(OBJ)
+	$(CC) $(CFLAGS) -o section2 section2.o $(OBJ) $(LIB_FLAGS)

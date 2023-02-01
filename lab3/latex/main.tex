@@ -40,7 +40,8 @@
 % --- End Code Listings
 \usepackage{graphicx}
 \usepackage{float}
-% \usepackage{caption}
+\usepackage{caption}
+\captionsetup{labelformat=empty} 
 % \usepackage{subcaption}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \graphicspath{{./figures/}}
@@ -82,6 +83,51 @@
 \end{figure}
 \subsection{C Code}
 \lstinputlisting[language=C]{../section1.c}
+
+
+
+\section{Image Segmentation}
+\subsection{Print out of randomly colored segmentation for T = 1, T = 2, and T = 3}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../segmentation-1t-contrasted.png}
+    \caption{T = 1}
+    \begin{center}
+    \end{center}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../segmentation-2t-contrasted.png}
+    \caption{T = 2}
+    \begin{center}
+    \end{center}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../segmentation-3t-contrasted.png}
+    \caption{T = 3}
+    \begin{center}
+    \end{center}
+\end{figure}
+
+\subsection{Listing of the number of regions generated for each of the values of T = 1, T = 2, and T = 3}
+\begin{center}
+    % T | Total segments | Large Segments
+    \begin{tabular}{|c|c|c|}
+        \hline
+        T & Total Segments & Large Segments \\
+        \hline
+        1 & 27654 & 36 \\
+        \hline
+        2 & 16747 & 41 \\
+        \hline
+        3 & 11190 & 22 \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection{C Code}
+\lstinputlisting[language=C]{../section2.c}
 
 
 

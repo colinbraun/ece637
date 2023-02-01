@@ -188,3 +188,73 @@ void save_grayscale_image_to_tiff_i(unsigned int **img, size_t width, size_t hei
     fclose ( fp );
 
 }
+
+void ConnectedNeighbors(
+    Pixel s,
+    double T,
+    unsigned char **img,
+    int width,
+    int height,
+    int *M,
+    Pixel c[4]
+)
+{
+    unsigned char s_value = img[s.m][s.n];
+    if (s.m != 0 && abs(img[s.m-1][s.n] - s_value) <= T) {
+        Pixel p = {.m = s.m-1, .n = s.n};
+        c[*M] = p;
+        (*M)++;
+    }
+    if (s.n != 0 && abs(img[s.m][s.n-1] - s_value) <= T) {
+        Pixel p = {.m = s.m, .n = s.n-1};
+        c[*M] = p;
+        (*M)++;
+    }
+    if (s.m != height-1 && abs(img[s.m+1][s.n] - s_value) <= T) {
+        Pixel p = {.m = s.m+1, .n = s.n};
+        c[*M] = p;
+        (*M)++;
+    }
+    if (s.n != width && abs(img[s.m][s.n+1] - s_value) <= T) {
+        Pixel p = {.m = s.m, .n = s.n+1};
+        c[*M] = p;
+        (*M)++;
+    }
+        
+}
+
+void ConnectedSet(
+    Pixel s,
+    double T,
+    unsigned char **img,
+    int width,
+    int height,
+    int ClassLabel,
+    unsigned int **seg,
+    int *NumConPixels
+)
+{
+    Pixel startPoints[width*height];
+    int index = 0;
+    startPoints[index] = s;
+    seg[s.m][s.n] = ClassLabel;
+    (*NumConPixels)++;
+    while (index != -1) {
+        s = startPoints[index--];
+        int numNeighbors = 0;
+        Pixel neighbors[4];
+        // Find the neighbors of the pixel s
+        ConnectedNeighbors(s, T, img, width, height, &numNeighbors, neighbors);
+        for (int i = 0; i < numNeighbors; i++) {
+            Pixel p = neighbors[i];
+            // If we haven't marked this pixel as part of the set add it to the pixels to explore
+            if (seg[p.m][p.n] == 0) {
+                startPoints[++index] = p;
+                // Mark this pixel as part of the connected set
+                seg[p.m][p.n] = ClassLabel;
+                // Increment the number of connected pixels
+                (*NumConPixels)++;
+            }
+        }
+    }
+}
