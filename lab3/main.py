@@ -3,7 +3,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 # Read in a segmentation TIFF image.
-im = Image.open('segmentation-2t.tif')
+im = Image.open('segmentation-1t.tif')
 # Import Image Data into Numpy array.
 x = np.array(im)
 # Obtain number of segmentation area.
@@ -13,5 +13,5 @@ cmap = mpl.colors.ListedColormap(np.random.rand(N+1, 3))
 plt.imshow(x, cmap=cmap, interpolation='none')
 plt.colorbar()
 plt.title('Image')
-plt.savefig("segmentation-2t-contrasted.png")
+plt.savefig("segmentation-1t-contrasted.png")
 # plt.show()

@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     int labelsWithLargeSegments[256];
     int classLabel = 0;
     int largeSegCount = 0;
-    double T = 3;
+    double T = 1;
     for (int row = 0; row < input_img.height; row++) {
         for (int col = 0; col < input_img.width; col++) {
             if (seg[row][col] == 0) {
@@ -54,6 +54,7 @@ int main(int argc, char **argv)
                 if (numConPixels > 100) {
                     labelsWithLargeSegments[largeSegCount] = classLabel;
                     largeSegCount++;
+                    printf("Label %d had more than 100 connected pixels\n", classLabel);
                 }
             }
         }
@@ -71,11 +72,11 @@ int main(int argc, char **argv)
                 }
             }
             if (labelIsLarge) {
-                result[row][col] = i;
+                result[row][col] = i+1;
             }
         }
     }
-    save_grayscale_image_to_tiff_i(result, input_img.width, input_img.height, "segmentation-3t.tif");
+    save_grayscale_image_to_tiff_i(result, input_img.width, input_img.height, "segmentation-1t.tif");
     printf("Segmentation done\n");
     printf("Total Number of Segments: %d\n", classLabel);
     printf("Number of Large Segments: %d\n", largeSegCount);
