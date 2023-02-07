@@ -17,9 +17,24 @@ def stretch(image, t1, t2):
             flat[i] = 255
         else:
             # Remap values ~t1 -> 0, ~t2 -> 255
-            # 
-            # Suppose t1 = 10, t2 = 240, flat[i] = 11 -> ~0
-            # Suppose t1 = 10, t2 = 240, flat[i] = 239 -> ~255
-            flat[i] = (t2-t1) * flat[i] - t1
+            flat[i] = 255 / (t2-t1) * (flat[i] - t1)
+
+    return flat.reshape(image.shape)
     
-    
+
+gray = cm.get_cmap('gray', 256)
+im = Image.open('kids.tif')
+x = np.array(im)
+plt.hist(x.flatten(), bins=np.linspace(0,255,256))
+# plt.show()
+plt.clf()
+
+stretched = stretch(x, 70, 180)
+plt.imshow(stretched, cmap=gray)
+plt.savefig("kids-stretched.png")
+# plt.show()
+plt.clf()
+
+plt.hist(stretched.flatten(), bins=np.linspace(0,255,256))
+plt.savefig("kids-stretched-histogram.png")
+# plt.show()
