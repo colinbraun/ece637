@@ -46,93 +46,134 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \graphicspath{{./figures/}}
 
-\title{ECE 637 - Lab 1}
+\title{ECE 637 - Lab 4}
 \author{Colin Braun}
 
 \begin{document}
 \maketitle
 
-\section{Area Fill}
-\subsection{Print out of img22gd2.tif}
+\section{Histogram of an Image}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../img22gd2.png}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../race.png}
+    \caption{race.tif image}
 \end{figure}
-\subsection{Print out of image showing the connected set for s = (67, 45), and T = 2}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../connected-set-2t.png}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../race-histogram.png}
+    \caption{Histogram of race}
 \end{figure}
-\subsection{Print out of image showing the connected set for s = (67, 45), and T = 1}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../connected-set-1t.png}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../kids.png}
+    \caption{kids.tif image}
 \end{figure}
-\subsection{Print out of image showing the connected set for s = (67, 45), and T = 3}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../connected-set-3t.png}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../kids-histogram.png}
+    \caption{Histogram of kids.tif}
 \end{figure}
-\subsection{C Code}
-\lstinputlisting[language=C]{../section1.c}
 
 
 
-\section{Image Segmentation}
-\subsection{Print out of randomly colored segmentation for T = 1, T = 2, and T = 3}
+\section{Histogram Equalization}
+\subsection{Function equalize}
+\lstinputlisting[language=Python, firstline=6, lastline=20]{../section2.py}
+\subsection{Plot of $\hat{F}_x(i)$ for kids.tif}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../segmentation-1t-contrasted.png}
-    \caption{T = 1}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../kids-fx.png}
+    \caption{$\hat{F}_x(i)$}
 \end{figure}
+\subsection{Plot of equalized image's histogram}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../segmentation-2t-contrasted.png}
-    \caption{T = 2}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../kids-equalized-histogram.png}
+    \caption{Equaliazed image's histogram}
 \end{figure}
+\subsection{Plot of equalized image}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../segmentation-3t-contrasted.png}
-    \caption{T = 3}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../kids-equalized-image.png}
+    \caption{Equalized image}
 \end{figure}
 
-\subsection{Listing of the number of regions generated for each of the values of T = 1, T = 2, and T = 3}
+
+
+\section{Contrast Stretching}
+\subsection{Code for stretch}
+\lstinputlisting[language=Python, firstline=6, lastline=22]{../section3.py}
+\subsection{Transformed image and its histogram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../kids-stretched.png}
+    \caption{Stretched image}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../kids-stretched-histogram.png}
+    \caption{Histogram of stretched image}
+\end{figure}
+
+
+
+\section{Gamma}
+\stepcounter{subsection}
+\subsection{Determining the Gamma of Your Computer Monitor}
+\subsubsection{Image corresponding to matching gray level}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../matching-gray-levels-140.png}
+    \caption{Matching gray level}
+\end{figure}
+\subsubsection{Derivation of expression relating matching gray level to the value of $\gamma$}
+By equating $I_c$ and $I_g$, we find
+
+\begin{equation*}
+    \frac{I_{255}}{2} = I_{255}(\frac{g}{255})^\gamma
+\end{equation*}
+\begin{equation*}
+    \frac{1}{2} = (\frac{g}{255})^\gamma
+\end{equation*}
+\begin{equation*}
+    \gamma = \log_{g/255}(\frac{1}{2})
+\end{equation*}
+
+\subsubsection{Measured gray level and mesured $\gamma$}
 \begin{center}
-    % T | Total segments | Large Segments
-    \begin{tabular}{|c|c|c|}
-        \hline
-        T & Total Segments & Large Segments \\
-        \hline
-        1 & 27654 & 36 \\
-        \hline
-        2 & 16747 & 41 \\
-        \hline
-        3 & 11190 & 22 \\
-        \hline
-    \end{tabular}
+    Measured gray level: 162
+
+    Measured $\gamma$ value: 1.52785
 \end{center}
 
-\subsection{C Code}
-\lstinputlisting[language=C]{../section2.c}
+\subsection{Gamma Correction}
+\subsubsection{Original and corrected images}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../linear.png}
+    \caption{Original version of linear.tif}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../linear-gamma-corrected.png}
+    \caption{Gamma-corrected version of linear.tif}
+\end{figure}
+\subsubsection{Formula used to transform the original image}
+The below formula transforms pixels in the original image x to the gamma-corrected pixels y.
+\begin{equation*}
+    y = x^{1/\gamma}
+\end{equation*}
+
+\subsection{Second section of gamma correction}
+\subsubsection{Corrected image}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../gamma15-gamma-corrected.png}
+    \caption{Corrected version of gamma15.tif}
+\end{figure}
+\subsubsection{Procedure used to change the gamma correction of the original image}
+The procedure is straightforward. First, undo the $\gamma = 1.5$ correction by raising each pixel value to the power of 1.5. Then just apply the same formula in section 4.3.2 with the value of $\gamma$ determined in section 4.2.3 above.
 
 
-
-\section{Appendix - util.c Code}
-Below is the code included in util.c. All other function calls not included in any of the source codes in this document are available in the starter code provided in lab 1.
-\lstinputlisting[language=C]{../util.c}
 
 \end{document}

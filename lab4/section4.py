@@ -30,7 +30,7 @@ def display_stripes(g):
     # plt.show()
 
 # -------------SECTION 4.2----------------
-display_stripes(140)
+display_stripes(162)
 plt.savefig("matching-gray-levels-140.png")
 
 
@@ -38,7 +38,7 @@ plt.savefig("matching-gray-levels-140.png")
 gray = cm.get_cmap('gray', 256)
 im = Image.open('linear.tif')
 x = np.array(im)
-gamma = 1.156
+gamma = 1.52785
 x = x**(1/gamma)
 plt.imshow(x, cmap=gray)
 plt.savefig("linear-gamma-corrected.png")

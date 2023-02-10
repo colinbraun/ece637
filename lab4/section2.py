@@ -24,7 +24,11 @@ def cdf(x):
     Compute and return the cummulative distribution function of the image x.
     """
     fx = np.zeros([256])
-    histogram, _ = np.histogram(x.flatten(), bins=256)
+    # The below does not work well
+    # histogram, _ = np.histogram(x.flatten(), bins=256)
+    histogram = np.zeros([256])
+    for pixel_val in x.flatten():
+        histogram[pixel_val] += 1
     # print(histogram)
     # print(sum(histogram[0]))
     total = np.sum(histogram)
