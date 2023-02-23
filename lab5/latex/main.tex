@@ -46,93 +46,81 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \graphicspath{{./figures/}}
 
-\title{ECE 637 - Lab 1}
+\title{ECE 637 Lab - Eigen-Decomposition of Images}
 \author{Colin Braun}
 
 \begin{document}
 \maketitle
 
-\section{Area Fill}
-\subsection{Print out of img22gd2.tif}
+\stepcounter{section}
+\section{Multivariate Gaussian Distributions and Whitening}
+\subsection{Generating Gaussian Random Vectors}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../img22gd2.png}
-    \begin{center}
-    \end{center}
-\end{figure}
-\subsection{Print out of image showing the connected set for s = (67, 45), and T = 2}
+    \includegraphics[width=1\textwidth]{../w-2-1.png}
+        \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../connected-set-2t.png}
-    \begin{center}
-    \end{center}
-\end{figure}
-\subsection{Print out of image showing the connected set for s = (67, 45), and T = 1}
+    \includegraphics[width=1\textwidth]{../x-tilde-2-1.png}
+        \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../connected-set-1t.png}
-    \begin{center}
-    \end{center}
-\end{figure}
-\subsection{Print out of image showing the connected set for s = (67, 45), and T = 3}
+    \includegraphics[width=1\textwidth]{../x-2-1.png}
+        \end{figure}
+\subsection{Covariance Estimation and Whitening}
+The theoretical value of the covariance $R_x$ is given as
+\begin{equation*}
+R_x = 
+\begin{bmatrix}
+    2 & -1.2 \\
+    -1.2 & 1
+\end{bmatrix}
+\end{equation*}.
+The covariance estimate $\hat{R}_X$ is calculated to be
+\begin{equation*}
+\hat{R}_X = 
+\begin{bmatrix}
+    1.97 & -1.19 \\
+    -1.19 & 0.99
+\end{bmatrix}
+\end{equation*}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../connected-set-3t.png}
-    \begin{center}
-    \end{center}
-\end{figure}
-\subsection{C Code}
-\lstinputlisting[language=C]{../section1.c}
-
-
-
-\section{Image Segmentation}
-\subsection{Print out of randomly colored segmentation for T = 1, T = 2, and T = 3}
+    \includegraphics[width=1\textwidth]{../x-tilde-2-2.png}
+        \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../segmentation-1t-contrasted.png}
-    \caption{T = 1}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../w-2-2.png}
+\end{figure}
+The covariance estimate $\hat{R}_W$ is calculated to be
+\begin{equation*}
+\hat{R}_W = 
+\begin{bmatrix}
+    2 & -1.2 \\
+    -12 & 1
+\end{bmatrix}
+\end{equation*}.
+
+% Skip section 3
+\stepcounter{section}
+\section{Eigenimages, PCA, and Data Reduction}
+\subsection{Exercise}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../eigenimages.png}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../segmentation-2t-contrasted.png}
-    \caption{T = 2}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../projection-coefficients.png}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../segmentation-3t-contrasted.png}
-    \caption{T = 3}
-    \begin{center}
-    \end{center}
+    \includegraphics[width=1\textwidth]{../original-image.png}
 \end{figure}
 
-\subsection{Listing of the number of regions generated for each of the values of T = 1, T = 2, and T = 3}
-\begin{center}
-    % T | Total segments | Large Segments
-    \begin{tabular}{|c|c|c|}
-        \hline
-        T & Total Segments & Large Segments \\
-        \hline
-        1 & 27654 & 36 \\
-        \hline
-        2 & 16747 & 41 \\
-        \hline
-        3 & 11190 & 22 \\
-        \hline
-    \end{tabular}
-\end{center}
-
-\subsection{C Code}
-\lstinputlisting[language=C]{../section2.c}
+\section{Image Classification}
+\subsection{Exercise: Classification and PCA}
 
 
-
-\section{Appendix - util.c Code}
-Below is the code included in util.c. All other function calls not included in any of the source codes in this document are available in the starter code provided in lab 1.
-\lstinputlisting[language=C]{../util.c}
 
 \end{document}

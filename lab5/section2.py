@@ -39,6 +39,7 @@ Z = np.copy(X)
 for col in range(Z.shape[1]):
     Z[:, col] -= u
 R_hat = 1/(n-1) * Z @ Z.T
+print(R_hat)
 evals, evecs = np.linalg.eig(R_hat)
 evals_n12 = np.diag(1 / evals)
 
