@@ -15,24 +15,47 @@ X = np.dot(evecs, X_tilde)
 plt.figure()
 plt.scatter(W[0, :], W[1, :])
 plt.axis('equal')
+plt.savefig('w-2-1.png')
 # plt.show()
 plt.clf()
 
 plt.figure()
 plt.scatter(X_tilde[0, :], X_tilde[1, :])
 plt.axis('equal')
+plt.savefig('x-tilde-2-1.png')
 # plt.show()
 plt.clf()
 
 plt.figure()
 plt.scatter(X[0, :], X[1, :])
 plt.axis('equal')
+plt.savefig('x-2-1.png')
 # plt.show()
 plt.clf()
+
 # ---------------------SECTION 2.2---------------------
-u = np.mean(X, 1)
+u = np.mean(X, axis=1)
 Z = np.copy(X)
 for col in range(Z.shape[1]):
     Z[:, col] -= u
-R_hat = 1/(n-1) * np.dot(Z, np.transpose(Z))
-print(R_hat)
+R_hat = 1/(n-1) * Z @ Z.T
+evals, evecs = np.linalg.eig(R_hat)
+evals_n12 = np.diag(1 / evals)
+
+
+X_tilde = evecs.T @ X
+W = evals_n12 @ X_tilde
+
+plt.figure()
+plt.scatter(X_tilde[0, :], X_tilde[1, :])
+plt.axis('equal')
+plt.savefig('x-tilde-2-2.png')
+# plt.show()
+plt.clf()
+
+plt.figure()
+plt.scatter(W[0, :], W[1, :])
+plt.axis('equal')
+plt.savefig('w-2-2.png')
+# plt.show()
+plt.clf()

@@ -33,8 +33,10 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
+            // "console": "internalConsole",
             "justMyCode": true,
-            "cwd": "${fileDirname}"
+            "cwd": "${fileDirname}",
+            // "pythonArgs": ["-i"]
         }
     ],
 }
