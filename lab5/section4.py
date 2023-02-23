@@ -95,21 +95,38 @@ for col in range(tests.shape[1]):
     tests[:, col] -= u
 low_dim_tests = A.T @ tests
 
-# Iterate over the images we wish to test
+cov_lam_k = np.zeros([26, Y.shape[0], Y.shape[0]])
+cov_r_wc = np.zeros([26, Y.shape[0], Y.shape[0]])
+cov_lam = np.zeros([26, Y.shape[0], Y.shape[0]])
+cov_i = np.zeros([26, Y.shape[0], Y.shape[0]])
+# Build up the various covariance matrices
 for i in range(26):
-    # y = lower dimensional image of interest
-    y = low_dim_tests[:, i].reshape(low_dim_tests.shape[0], 1)
-    # Iterate over the means and covariance matrices
-    best, best_k, first = 0, 0, True
+    cov_lam_k[i] = np.diag(np.array([cov[i, j, j] for j in range(Y.shape[0])]))
     for k in range(26):
-        uk = mean[:, k].reshape(mean.shape[0], 1)
-        Rk = cov[k]
-        result = ((y - uk).T @ np.linalg.inv(Rk) @ (y - uk)) + math.log(np.linalg.det(Rk))
-        if result < best or first:
-            best, best_k, first = result, k, False
-    # print(f"Character {datachar[i]} identified as {datachar[best_k]}")
-    if datachar[i] != datachar[best_k]:
-        print(f"Mismatch: Identified {datachar[i]} as {datachar[best_k]}")
+        cov_r_wc[i] += cov[k]
+    cov_r_wc[i] = cov_r_wc[i] / 26
+    cov_lam[i] = np.diag(np.array([cov_r_wc[i, j, j] for j in range(Y.shape[0])]))
+    cov_i[i] = np.eye(Y.shape[0])
+
+# Iterate over each covariance matrix we wish to test
+for ident, cov_mat in enumerate((cov, cov_lam_k, cov_r_wc, cov_lam, cov_i)):
+    print(f"RESULTS FOR COVARIANCE MATRIX {ident}:")
+    # Iterate over the images we wish to test
+    for i in range(26):
+        # y = lower dimensional image of interest
+        y = low_dim_tests[:, i].reshape(low_dim_tests.shape[0], 1)
+        # Iterate over the means and covariance matrices
+        best, best_k, first = 0, 0, True
+        for k in range(26):
+            uk = mean[:, k].reshape(mean.shape[0], 1)
+            Rk = cov_mat[k]
+            result = ((y - uk).T @ np.linalg.inv(Rk) @ (y - uk)) + math.log(np.linalg.det(Rk))
+            if result < best or first:
+                best, best_k, first = result, k, False
+        # print(f"Character {datachar[i]} identified as {datachar[best_k]}")
+        if datachar[i] != datachar[best_k]:
+            print(f"Mismatch: Identified {datachar[i]} as {datachar[best_k]}")
+    print()
 
 
 print('done')
