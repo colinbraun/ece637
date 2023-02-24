@@ -46,6 +46,13 @@ evals_n12 = np.diag(1 / evals)
 
 X_tilde = evecs.T @ X
 W = evals_n12 @ X_tilde
+uW = np.mean(W, axis=1)
+Zw = np.copy(W)
+for col in range(Zw.shape[1]):
+    Zw[:, col] -= uW
+R_hat_w = 1/(n-1) * Zw @ Zw.T
+print(R_hat_w)
+
 
 plt.figure()
 plt.scatter(X_tilde[0, :], X_tilde[1, :])
