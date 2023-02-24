@@ -120,7 +120,92 @@ The covariance estimate $\hat{R}_W$ is calculated to be
 
 \section{Image Classification}
 \subsection{Exercise: Classification and PCA}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Input Character & Classifier Output \\
+        \hline
+        d & a \\
+        \hline
+        j & y \\
+        \hline
+        l & i \\
+        \hline
+        n & v \\
+        \hline
+        p & e \\
+        \hline
+        q & a \\
+        \hline
+        u & a \\
+        \hline
+        y & v \\
+        \hline
+    \end{tabular}
+    \caption{Mis-classified images using $R_k$}
+\end{table}
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Input Character & Classifier Output \\
+        \hline
+        i & l \\
+        \hline
+        y & v \\
+        \hline
+    \end{tabular}
+    \caption{Mis-classified images using $B_k = \Lambda_k$}
+\end{table}
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Input Character & Classifier Output \\
+        \hline
+        g & q \\
+        \hline
+        y & v \\
+        \hline
+    \end{tabular}
+    \caption{Mis-classified images using $B_k = R_{wc}$}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Input Character & Classifier Output \\
+        \hline
+        f & t \\
+        \hline
+        g & q \\
+        \hline
+    \end{tabular}
+    \caption{Mis-classified images using $B_k = \Lambda$}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Input Character & Classifier Output \\
+        \hline
+        f & t \\
+        \hline
+        g & q \\
+        \hline
+        y & v \\
+        \hline
+    \end{tabular}
+    \caption{Mis-classified images using $B_k = I$}
+\end{table}
+
+Clearly, among the above, the $B_k = \Lambda_k$, $B_k = R_{wc}$, and $B_k = \Lambda$ performed the best, only incorrectly classifying two characters.
+
+TODO: Answer question 2
 
 \end{document}
