@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 # Load data.npy
 data = np.load('data.npy', allow_pickle=True)[()]
-# List keys of dataset
-data.keys()
 
 # Create data from 400 to 700, separated by 10 each
 wavelengths = np.arange(400, 710, 10)
