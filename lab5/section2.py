@@ -41,11 +41,13 @@ for col in range(Z.shape[1]):
 R_hat = 1/(n-1) * Z @ Z.T
 print(R_hat)
 evals, evecs = np.linalg.eig(R_hat)
-evals_n12 = np.diag(1 / evals)
+evals_n12 = np.diag(1 / np.sqrt(evals))
 
 
-X_tilde = evecs.T @ X
+X_tilde = evecs.T @ Z
+# Switch with covariance mat (R_hat?) Double check in general
 W = evals_n12 @ X_tilde
+# W = R_hat @ X_tilde
 uW = np.mean(W, axis=1)
 Zw = np.copy(W)
 for col in range(Zw.shape[1]):

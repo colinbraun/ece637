@@ -58,15 +58,18 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../w-2-1.png}
-        \end{figure}
+    \caption{Scatter Plot of W}
+\end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../x-tilde-2-1.png}
-        \end{figure}
+    \caption{Scatter Plot of $\tilde{X}$}
+\end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../x-2-1.png}
-        \end{figure}
+    \caption{Scatter Plot of X}
+\end{figure}
 \subsection{Covariance Estimation and Whitening}
 The theoretical value of the covariance $R_x$ is given as
 \begin{equation*}
@@ -74,32 +77,34 @@ R_x =
 \begin{bmatrix}
     2 & -1.2 \\
     -1.2 & 1
-\end{bmatrix}
-\end{equation*}.
+\end{bmatrix}.
+\end{equation*}
 The covariance estimate $\hat{R}_X$ is calculated to be
 \begin{equation*}
 \hat{R}_X = 
 \begin{bmatrix}
     1.97 & -1.19 \\
     -1.19 & 0.99
-\end{bmatrix}
-\end{equation*}.
+\end{bmatrix}.
+\end{equation*}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../x-tilde-2-2.png}
-        \end{figure}
+    \caption{Scatter Plot of $\tilde{X}$}
+\end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../w-2-2.png}
+    \caption{Scatter Plot of W}
 \end{figure}
-The covariance estimate $\hat{R}_W$ is calculated to be
+The covariance estimate $\hat{R}_W$ is calculated to be very close to the identity matrix
 \begin{equation*}
 \hat{R}_W = 
 \begin{bmatrix}
-    0.34 & 0 \\
-    0 & 4.87
-\end{bmatrix}
-\end{equation*}.
+    1 & 0 \\
+    0 & 1
+\end{bmatrix}.
+\end{equation*}
 
 % Skip section 3
 \stepcounter{section}
@@ -108,14 +113,22 @@ The covariance estimate $\hat{R}_W$ is calculated to be
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../eigenimages.png}
+    \caption{Eigenimages}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../projection-coefficients.png}
+    \caption{Projection Coefficients}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../original-image.png}
+    \caption{Original Image}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../resynthesized-images.png}
+    \caption{The 6 resynthesized images}
 \end{figure}
 
 \section{Image Classification}
@@ -206,6 +219,6 @@ The covariance estimate $\hat{R}_W$ is calculated to be
 
 Clearly, among the above, the $B_k = \Lambda_k$, $B_k = R_{wc}$, and $B_k = \Lambda$ performed the best, only incorrectly classifying two characters.
 
-TODO: Answer question 2
+In constraining the covariance, we are achieving a higher accuracy of estimates in exchange for a lower accuracy of the data model.
 
 \end{document}
