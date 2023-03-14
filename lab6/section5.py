@@ -29,6 +29,7 @@ for row in range(x.shape[0]):
 
 gamma = 2.2
 image = image**(1/gamma)
+image = np.flip(image, axis=0)
 plt.imshow(image, extent=[0, 1, 0, 1])
 
 # Load data.npy

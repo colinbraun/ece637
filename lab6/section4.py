@@ -1,6 +1,7 @@
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
+from latex import bmatrix
 # Load data.npy
 data = np.load('data.npy', allow_pickle=True)[()]
 reflect = np.load('reflect.npy', allow_pickle=True)[()]
@@ -44,7 +45,8 @@ k = np.linalg.inv(mat) @ np.array([d65_wp[0]/d65_wp[1], 1, d65_wp[2]/d65_wp[1]])
 M = mat @ np.diag(k.flatten())
 # Minv goes the other direction
 Minv = np.linalg.inv(M)
-print(M)
+print(Minv)
+print(bmatrix(Minv))
 
 RGB = np.zeros(XYZ.shape)
 
