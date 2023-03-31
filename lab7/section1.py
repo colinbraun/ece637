@@ -6,7 +6,7 @@ from latex import bmatrix
 
 gray = cm.get_cmap('gray', 256)
 y = np.array(Image.open('img14g.tif'))
-x = np.array(Image.open('img14bl.tif'))
+x = np.array(Image.open('img14sp.tif'))
 print(x.shape)
 
 sr = np.arange(20, y.shape[0], 20)
@@ -47,6 +47,7 @@ for row in range(x.shape[0]):
 # print(np.amax(result))
 result = np.clip(result, 0, 255)
 imsave = Image.fromarray(result.astype(np.uint8))
-imsave.save('1-img14bl-restored.png')
-print(bmatrix(np.round(theta_star, 4).reshape([7, 7])))
+# imsave.save('1-img14bl-restored.png')
+imsave.save('1-img14sp-restored.png')
+print(bmatrix(np.round(theta_star, 3).reshape([7, 7])))
 # print(str(np.round(theta_star, 4).reshape([7, 7])))
