@@ -1,6 +1,21 @@
 from PIL import Image
 import numpy as np
 from scipy.signal import convolve2d
+from tabulate import tabulate
+
+def bmatrix(a):
+    """Returns a LaTeX bmatrix
+
+    :a: numpy array
+    :returns: LaTeX bmatrix as a string
+    """
+    if len(a.shape) > 2:
+        raise ValueError('bmatrix can at most display two dimensions')
+    lines = str(a).replace('[', '').replace(']', '').splitlines()
+    rv = [r'\begin{bmatrix}']
+    rv += ['  ' + ' & '.join(l.split()) + r'\\' for l in lines]
+    rv +=  [r'\end{bmatrix}']
+    return '\n'.join(rv)
 
 def bw_threshold(img, t):
     """
@@ -44,6 +59,12 @@ I2 = np.array([[1, 2], [3, 0]])
 # I2N=np.block([[4*IN + 1,4*IN + 2],[4*IN + 3,4*IN]])
 I4=np.block([[4*I2 + 1,4*I2 + 2],[4*I2 + 3,4*I2]])
 I8=np.block([[4*I4 + 1,4*I4 + 2],[4*I4 + 3,4*I4]])
+# print(I2)
+# print(I4)
+# print(I8)
+print(bmatrix(I2))
+print(bmatrix(I4))
+print(bmatrix(I8))
 T2 = 255 * (I2 + 0.5) / (2**2)
 T4 = 255 * (I4 + 0.5) / (4**2)
 T8 = 255 * (I8 + 0.5) / (8**2)
@@ -60,16 +81,16 @@ for index, b in enumerate(bs):
 
 # TODO: Determine if error and fidelity should be relative to linear image or input image
 img_out2 = Image.fromarray(b2.astype(np.uint8))
-img_out2.save("4-b2x2.png")
-print(f"Error 2x2: {rmse(input_linear, b2)}")
-print(f"Fidelity 2x2: {fidelity(input_linear, b2)}")
+img_out2.save("4-b2x2.tif")
+print(f"Error 2x2: {rmse(input_img, b2)}")
+print(f"Fidelity 2x2: {fidelity(input_img, b2)}")
 
 img_out4 = Image.fromarray(b4.astype(np.uint8))
-img_out4.save("4-b4x4.png")
-print(f"Error 4x4: {rmse(input_linear, b4)}")
-print(f"Fidelity 4x4: {fidelity(input_linear, b4)}")
+img_out4.save("4-b4x4.tif")
+print(f"Error 4x4: {rmse(input_img, b4)}")
+print(f"Fidelity 4x4: {fidelity(input_img, b4)}")
 
 img_out8 = Image.fromarray(b8.astype(np.uint8))
-img_out8.save("4-b8x8.png")
-print(f"Error 8x8: {rmse(input_linear, b8)}")
-print(f"Fidelity 8x8: {fidelity(input_linear, b8)}")
+img_out8.save("4-b8x8.tif")
+print(f"Error 8x8: {rmse(input_img, b8)}")
+print(f"Fidelity 8x8: {fidelity(input_img, b8)}")

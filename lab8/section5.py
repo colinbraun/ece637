@@ -59,6 +59,6 @@ for i in range(output.shape[0]):
 
 input_linear_original = 255 * (input_img/255)**gamma
 result = Image.fromarray(output.astype(np.uint8))
-result.save("5-diffusion-result.png")
-print(f"Error 4x4: {rmse(input_linear_original, output)}")
-print(f"Fidelity: {fidelity(input_linear_original, output)}")
+result.save("5-diffusion-result.tif")
+print(f"Error: {rmse(input_img, output)}")
+print(f"Fidelity: {fidelity(input_img, output)}")

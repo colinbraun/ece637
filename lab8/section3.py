@@ -45,7 +45,7 @@ fid = fidelity(input_img, binary_img)
 print(f"Error: {error}")
 print(f"Fidelity: {fid}")
 result = Image.fromarray(binary_img)
-result.save("3-thresholded-image.png")
+result.save("3-thresholded-image.tif")
 
 
 
